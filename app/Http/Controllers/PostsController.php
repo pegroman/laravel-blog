@@ -12,8 +12,20 @@ class PostsController extends Controller
     }
 
     public function index(){
-    	$posts=Post::latest()->get();
-    	return view('posts.index',compact('posts'));
+    	
+
+        if(request(['month','year'])){
+            $posts=Post::latest()
+            ->filter(request(['month','year']))
+            ->get();
+        } else {
+            $posts = Post::latest()->get();
+        }
+
+        $archives=Post::archives();
+
+        
+    	return view('posts.index',compact('posts','archives'));
     }
 
     public function show(Post $post){
