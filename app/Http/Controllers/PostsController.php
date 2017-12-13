@@ -21,11 +21,8 @@ class PostsController extends Controller
         } else {
             $posts = Post::latest()->get();
         }
-
-        $archives=Post::archives();
-
         
-    	return view('posts.index',compact('posts','archives'));
+    	return view('posts.index',compact('posts'));
     }
 
     public function show(Post $post){
